@@ -1,0 +1,658 @@
+/* ============================================================
+   domains.css — Domains page exclusive styles
+   Developer Students Club • SRM IST Ramapuram
+   ============================================================
+   NOTE: contact.css is also imported on this page (for shared
+   structural classes: .contact-container, .contact-layout-wrapper,
+   .side-rays-bg, .corner-graphic, .dsc-marquee-*, etc.)
+   This file adds ONLY Domains-specific styles that do not already
+   exist in contact.css.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
+
+/* ============================================================
+   PHASE 2 — "Shhh" hero cutout beside the heading
+   Isolated Domains implementation. No shared classes used.
+   Visual values mirror contact.css .art-cutout-wrap / .art-cutout
+   for design consistency without code coupling.
+   ============================================================ */
+.domains-hero-image {
+  position: absolute;
+  right: -80px;
+  top: 28%;
+  /* Exact size from contact.css .cutout-2 */
+  width: clamp(220px, 18vw, 320px);
+  transform-origin: center right;
+  transform: rotate(5deg);
+  z-index: 2;
+  opacity: 0.15;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.1, 0.8, 0.2, 1),
+              opacity 0.5s ease,
+              filter 0.5s ease;
+}
+
+.domains-hero-image:hover {
+  opacity: 0.45;
+  filter: drop-shadow(0 0 25px rgba(29, 209, 161, 0.35))
+          drop-shadow(0 0 50px rgba(29, 209, 161, 0.15));
+  transform: rotate(5deg) translateX(-6px);
+}
+
+.domains-hero-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* Grayscale initially, colour on hover */
+  filter: grayscale(100%) brightness(0.6) contrast(1.2);
+  transition: filter 0.5s ease,
+              transform 0.4s cubic-bezier(0.1, 0.8, 0.2, 1);
+  /* Soft fade at the bottom to blend the cut-off edge */
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 15%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 15%);
+}
+
+.domains-hero-image:hover img {
+  filter: grayscale(0%) brightness(0.8) contrast(1.1);
+  transform: scale(1.05) translateY(-3%);
+}
+
+@media (max-width: 768px) {
+  .domains-hero-image {
+    display: none;
+  }
+}
+
+/* ============================================================
+   SECTION WRAPPER
+   ============================================================ */
+.domains-section {
+  position: relative;
+  width: 100%;
+  padding-bottom: 80px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.domains-section-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+  position: relative;
+}
+
+/* ============================================================
+   PHASE 3 — Top-right arch artwork
+   Grayscale → colour on hover. Subtle GSAP movement applied via JS.
+   Emerald glow on hover.
+   ============================================================ */
+.domains-arch-artwork {
+  position: absolute;
+  top: -40px;
+  right: -20px;
+  width: 250px;
+  opacity: 0.28;
+  pointer-events: auto;
+  z-index: 0;
+  /* Vignette edge-fade */
+  -webkit-mask-image: radial-gradient(ellipse at center,
+      black 55%,
+      transparent 100%);
+  mask-image: radial-gradient(ellipse at center,
+      black 55%,
+      transparent 100%);
+}
+
+.domains-arch-wrap {
+  position: absolute;
+  top: -8px;
+  right: -20px;
+  width: 250px;
+  height: 360px;
+  overflow: hidden;
+  cursor: pointer;
+  /* Transition opacity + glow; GSAP owns transform */
+  transition: opacity 0.45s ease, filter 0.45s ease;
+}
+
+/* Soft radial dark edge overlay inside the wrap */
+.domains-arch-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center,
+    transparent 45%,
+    rgba(8, 13, 11, 0.28) 75%,
+    rgba(8, 13, 11, 0.6) 100%);
+  filter: blur(22px);
+  opacity: 0.9;
+}
+
+.domains-arch-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* Grayscale initially */
+  filter: grayscale(100%) brightness(0.6) contrast(1.2);
+  transition: filter 0.5s ease;
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 20%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 20%);
+}
+
+/* Colour + glow on hover of the wrap */
+.domains-arch-wrap:hover {
+  opacity: 1;
+  filter: drop-shadow(0 0 22px rgba(29, 209, 161, 0.30))
+          drop-shadow(0 0 48px rgba(29, 209, 161, 0.12));
+}
+
+.domains-arch-wrap:hover .domains-arch-image {
+  filter: grayscale(0%) brightness(0.85) contrast(1.05);
+}
+
+/* ============================================================
+   SECTION HEADER TYPOGRAPHY
+   ============================================================ */
+.domains-section-header {
+  text-align: center;
+  margin-bottom: 60px;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.domains-section-label {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #1dd1a1;
+  display: inline-block;
+  margin-bottom: 20px;
+  background: rgba(29, 209, 161, 0.08);
+  border: 1px solid rgba(29, 209, 161, 0.15);
+  padding: 6px 16px;
+  border-radius: 9999px;
+  text-shadow: 0 0 10px rgba(29, 209, 161, 0.2);
+}
+
+.domains-section-title {
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  font-size: clamp(3.8rem, 7vw, 5rem);
+  font-weight: 700;
+  color: #e8ede9;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
+}
+
+.domains-section-title-italic {
+  font-style: italic;
+  color: #1dd1a1;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.domains-section-description {
+  color: #6b7b72;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(15px, 1.5vw, 17px);
+  line-height: 1.7;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.emerald-italic {
+  display: block;
+  margin-top: 16px;
+  color: #1dd1a1;
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  font-weight: 500;
+  font-size: 1.3em;
+  font-style: italic;
+  text-shadow: 0 0 12px rgba(29, 209, 161, 0.25);
+  letter-spacing: 0.02em;
+}
+
+.domains-decorative-divider {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 1.2rem;
+  color: rgba(29, 209, 161, 0.4);
+  margin-top: 32px;
+  letter-spacing: 4px;
+}
+
+/* ============================================================
+   DOMAIN CARDS GRID
+   ============================================================ */
+.domains-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+  /* Required for child 3D transforms — mirrors Team page */
+  perspective: 1000px;
+}
+
+.domains-grid-item {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: domainCardReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(var(--card-index, 0) * 0.15s + 0.2s);
+  /* Pass perspective through to child card */
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+@keyframes domainCardReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   PHASE 4 — Glassmorphism Domain Cards with GSAP 3D Tilt
+   transform-style: preserve-3d; will-change: transform;
+   No transform in CSS transition — GSAP owns the transform.
+   ============================================================ */
+.domain-card-glass {
+  position: relative;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E"),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 100%);
+  background-color: rgba(17, 23, 20, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  height: 100%;
+  min-height: 580px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  will-change: transform;
+  /* Only non-transform properties transition; GSAP owns transform */
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.domain-card-glass:hover {
+  border-color: rgba(29, 209, 161, 0.25);
+  box-shadow: 0 16px 40px rgba(29, 209, 161, 0.06),
+    0 0 30px rgba(29, 209, 161, 0.10);
+}
+
+/* ── Top Artwork & Title Section ── */
+.domain-card-top {
+  position: relative;
+  height: 250px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+}
+
+.domain-card-artwork-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+  opacity: 0.95;
+  /* Mask fades bottom edge into card body */
+  -webkit-mask-image: radial-gradient(130% 120% at 50% -10%, black 50%, transparent 100%);
+  mask-image: radial-gradient(130% 120% at 50% -10%, black 50%, transparent 100%);
+  /* Emerald-grade filter — grayscale initially */
+  filter: grayscale(100%) brightness(0.72) contrast(1.05);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+}
+
+.domain-card-glass:hover .domain-card-artwork-img {
+  /* Colour on hover */
+  transform: scale(1.03);
+  filter: brightness(0.95) contrast(1.05) saturate(1);
+}
+
+.domain-card-artwork-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse at center, transparent 40%, rgba(8, 13, 11, 0.4) 100%);
+  pointer-events: none;
+}
+
+/* Icon in upper-left corner */
+.domain-card-icon {
+  position: relative;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: rgba(17, 23, 20, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.domain-card-glass:hover .domain-card-icon {
+  background-color: rgba(29, 209, 161, 0.25);
+  border-color: rgba(29, 209, 161, 0.4);
+}
+
+/* Inline SVG icons per domain — no external dependencies */
+.domain-card-icon--technical {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231dd1a1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='4' width='16' height='16' rx='2'/%3E%3Crect x='9' y='9' width='6' height='6'/%3E%3Cpath d='M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3'/%3E%3C/svg%3E");
+}
+
+.domain-card-icon--creatives {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231dd1a1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 14.7255 3.09032 17.1962 4.85857 19C5.03442 19.1758 5.16016 19.4143 5.14371 19.6622C5.1054 20.24 5.37895 20.8037 5.86796 21.1093C6.39893 21.4412 7.07849 21.3653 7.52988 20.9234L8.71802 19.7599C9.09641 19.3894 9.6133 19.1831 10.15 19.1831H12C12.5523 19.1831 13 19.6308 13 20.1831V21C13 21.5523 12.5523 22 12 22Z'/%3E%3Ccircle cx='7.5' cy='10.5' r='1.5' fill='%231dd1a1'/%3E%3Ccircle cx='11.5' cy='7.5' r='1.5' fill='%231dd1a1'/%3E%3Ccircle cx='16.5' cy='9.5' r='1.5' fill='%231dd1a1'/%3E%3C/svg%3E");
+}
+
+.domain-card-icon--operations {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231dd1a1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='9' cy='7' r='4'/%3E%3Cpath d='M22 21v-2a4 4 0 0 0-3-3.87'/%3E%3Cpath d='M16 3.13a4 4 0 0 1 0 7.75'/%3E%3C/svg%3E");
+}
+
+.domain-card-title {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #e8ede9;
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+}
+
+/* ── Card Body ── */
+.domain-card-body {
+  position: relative;
+  z-index: 6;
+  padding: 24px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.domain-card-description {
+  color: #6b7b72;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.domain-card-bullet-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-grow: 1;
+}
+
+.domain-card-bullet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(232, 237, 233, 0.85);
+  line-height: 1.5;
+  transition: color 0.3s ease;
+}
+
+.domain-card-glass:hover .domain-card-bullet-item {
+  color: #e8ede9;
+}
+
+.bullet-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #1dd1a1;
+  margin-top: 7px;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px rgba(29, 209, 161, 0.5);
+}
+
+/* ── Glow Ring ── */
+.domain-card-glow-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  border: 1.5px solid transparent;
+  pointer-events: none;
+  z-index: 4;
+  transition: border-color 0.4s ease;
+}
+
+.domain-card-glass:hover .domain-card-glow-ring {
+  border-color: rgba(29, 209, 161, 0.35);
+  mask-image: linear-gradient(135deg, black, transparent 80%);
+  -webkit-mask-image: linear-gradient(135deg, black, transparent 80%);
+}
+
+/* ============================================================
+   PHASE 5 — Bottom CTA block (matches team.astro layout)
+   Decorative artwork protruding behind glass card.
+   Images never overlap text. Grayscale → colour on hover.
+   Subtle glow + movement on hover.
+   ============================================================ */
+
+/* Wrapper: relative positioning context for absolutely-placed images */
+.domains-bottom-cta {
+  position: relative;
+  z-index: 10;
+  margin-top: 80px;
+  padding-bottom: 20px;
+  width: 100%;
+  overflow: visible;
+  isolation: isolate;
+}
+
+/* Glass CTA card — same visual as team.astro .team-cta-box */
+.domains-cta-box {
+  position: relative;
+  z-index: 2;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E"),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0) 100%);
+  background-color: rgba(17, 23, 20, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  text-align: left;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.domains-cta-box:hover {
+  border-color: rgba(29, 209, 161, 0.25);
+  box-shadow: 0 12px 40px rgba(29, 209, 161, 0.06);
+}
+
+.domains-cta-text,
+.domains-cta-action {
+  position: relative;
+  z-index: 2;
+}
+
+.domains-cta-text h2 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 1.8rem;
+  color: #e8ede9;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.domains-cta-text p {
+  color: #6b7b72;
+  font-size: 14.5px;
+  line-height: 1.6;
+  max-width: 580px;
+  margin: 0;
+}
+
+.domains-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  color: #080d0b;
+  border: none;
+  border-radius: 10px;
+  padding: 16px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.25s, transform 0.25s;
+  white-space: nowrap;
+}
+
+.domains-cta-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  color: #080d0b;
+}
+
+.domains-cta-btn:active {
+  transform: translateY(0);
+}
+
+/* Decorative character images — behind the card, protruding at the corners.
+   z-index: 1 = below .domains-cta-box (z-index: 2), so they never overlap text. */
+.domains-cta-character-left,
+.domains-cta-character-right {
+  position: absolute;
+  top: -60px;
+  width: 240px;
+  z-index: 1;
+  opacity: 0.20;
+  pointer-events: auto;
+  /* Grayscale initially */
+  filter: grayscale(100%) brightness(0.45) saturate(0.35);
+  transition: filter 0.45s ease, transform 0.45s ease, opacity 0.45s ease;
+}
+
+.domains-cta-character-left {
+  left: -160px;
+  transform: rotate(-7deg);
+}
+
+.domains-cta-character-right {
+  right: -60px;
+  transform: rotate(7deg);
+}
+
+/* Colour + glow on direct hover — never triggered by card hover */
+.domains-cta-character-left:hover {
+  opacity: 0.55;
+  filter: grayscale(0) brightness(1) saturate(1)
+          drop-shadow(0 0 22px rgba(29, 209, 161, 0.18));
+  transform: rotate(-7deg) translateY(-8px) translateX(-6px);
+}
+
+.domains-cta-character-right:hover {
+  opacity: 0.55;
+  filter: grayscale(0) brightness(1) saturate(1)
+          drop-shadow(0 0 22px rgba(29, 209, 161, 0.18));
+  transform: rotate(7deg) translateY(-8px) translateX(6px);
+}
+
+/* ============================================================
+   SHARED pointer-events — enable interactions on domains elements
+   ============================================================ */
+.domains-showcase-section,
+.domains-bottom-cta {
+  pointer-events: auto;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .domains-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .domains-section {
+    padding-bottom: 60px;
+  }
+
+  .domains-section-header {
+    margin-bottom: 40px;
+  }
+
+  .domains-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .domain-card-glass {
+    min-height: auto;
+  }
+
+  .domain-card-top {
+    height: 300px;
+  }
+
+  .domain-card-body {
+    padding: 24px;
+  }
+
+  .domains-cta-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 30px;
+  }
+
+  .domains-cta-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .domains-cta-character-left,
+  .domains-cta-character-right {
+    display: none;
+  }
+}
