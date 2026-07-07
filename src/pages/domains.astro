@@ -1,0 +1,175 @@
+---
+/**
+ * Domains Page
+ * Developer Students Club • SRM IST Ramapuram
+ *
+ * Phases implemented:
+ *   1 — Page structure (matching Contact / Team page conventions)
+ *   2 — "Shhh" hero cutout beside heading (grayscale → colour on hover, emerald glow)
+ *   3 — Top-right arch artwork with GSAP movement (inside DomainsSection)
+ *   4 — Domain cards with GSAP 3D tilt (inside DomainCard)
+ *   5 — Bottom CTA with decorative character artwork
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.tsx';
+import Footer from '../components/Footer.tsx';
+import SideRays from '../components/SideRays.tsx';
+import TechParticles from '../components/TechParticles.tsx';
+import Watermark from '../components/Watermark.astro';
+import DomainsSection from '../components/domains/DomainsSection.tsx';
+import '../styles/contact.css';
+import '../styles/domains.css';
+---
+
+<BaseLayout
+  title="Domains — Developer Students Club | SRM IST Ramapuram"
+  description="Explore the three domains of Developer Students Club at SRM IST Ramapuram — Technical, Creatives, and Operations. Find the domain where your curiosity becomes your impact."
+>
+
+  <!-- Interactive WebGL SideRays Background (React Island) -->
+  <div class="side-rays-bg">
+    <SideRays
+      client:only="react"
+      speed={1.2}
+      rayColor1="#1dd1a1"
+      rayColor2="#00f2fe"
+      intensity={1.2}
+      spread={2.5}
+      origin="top-right"
+      tilt={0}
+      saturation={1.5}
+      blend={0.75}
+      falloff={1.6}
+      opacity={0.65}
+    />
+  </div>
+
+  <!-- Interactive Background Canvas Particles (React Island) -->
+  <TechParticles client:idle />
+
+  <!-- Decorative Corner Circuit Board Graphics -->
+  <svg class="corner-graphic corner-top-left" width="250" height="250" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,50 L100,50 L150,100 L220,100" stroke="rgba(232, 237, 233, 0.4)" stroke-width="1.5" stroke-linecap="round" />
+    <path d="M60,0 L60,80 L100,120 L150,120" stroke="rgba(232, 237, 233, 0.25)" stroke-width="1" stroke-linecap="round" />
+    <circle cx="220" cy="100" r="3" fill="#1dd1a1" />
+    <circle cx="150" cy="120" r="2" fill="rgba(232, 237, 233, 0.6)" />
+  </svg>
+
+  <svg class="corner-graphic corner-top-right" width="250" height="250" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M250,50 L150,50 L100,100 L30,100" stroke="rgba(232, 237, 233, 0.4)" stroke-width="1.5" stroke-linecap="round" />
+    <path d="M190,0 L190,80 L150,120 L100,120" stroke="rgba(232, 237, 233, 0.25)" stroke-width="1" stroke-linecap="round" />
+    <circle cx="30" cy="100" r="3" fill="#1dd1a1" />
+    <circle cx="100" cy="120" r="2" fill="rgba(232, 237, 233, 0.6)" />
+  </svg>
+
+  <!-- Marquee Ticker -->
+  <div class="dsc-marquee-container">
+    <div class="dsc-marquee-content">
+      <div class="dsc-marquee-item">TECHNICAL · CREATIVES · OPERATIONS</div><div class="dsc-marquee-star">★</div>
+      <div class="dsc-marquee-item">THREE DOMAINS. INFINITE POSSIBILITIES.</div><div class="dsc-marquee-star">★</div>
+      <div class="dsc-marquee-item">JOIN THE DEVELOPER STUDENTS CLUB</div><div class="dsc-marquee-star">★</div>
+      <div class="dsc-marquee-item">EMPOWERING STUDENT DEVELOPERS AT SRM IST RAMAPURAM</div><div class="dsc-marquee-star">★</div>
+      <div class="dsc-marquee-item">TECHNICAL · CREATIVES · OPERATIONS</div><div class="dsc-marquee-star">★</div>
+      <div class="dsc-marquee-item">THREE DOMAINS. INFINITE POSSIBILITIES.</div><div class="dsc-marquee-star">★</div>
+      <div class="dsc-marquee-item">JOIN THE DEVELOPER STUDENTS CLUB</div><div class="dsc-marquee-star">★</div>
+      <div class="dsc-marquee-item">EMPOWERING STUDENT DEVELOPERS AT SRM IST RAMAPURAM</div><div class="dsc-marquee-star">★</div>
+    </div>
+  </div>
+
+  <!-- Navigation (React Island) -->
+  <Header client:load active="domains" />
+
+  <main class="contact-container" style="max-width: 1100px;">
+    <div class="contact-layout-wrapper" style="--watermark-size: clamp(6.5rem, 22vw, 16rem);">
+
+      <!-- 3D Parallax Watermark -->
+      <Watermark text="DOMAINS" />
+
+      <!--
+        PHASE 2 — Decorative "Shhh" hero cutout beside the heading.
+        Same size as Contact page cutout-2.
+        Grayscale initially → coloured on hover.
+        Subtle emerald glow. Slight horizontal movement. Cursor pointer on hover.
+        Isolated: uses .domains-hero-image and .domains-hero-image img only.
+      -->
+      <div class="domains-hero-image">
+        <img src="/i2.webp" alt="" aria-hidden="true" width="342" height="450" />
+      </div>
+
+      <!-- Domains Grid Section (React Island) — includes Phase 3 arch artwork -->
+      <section class="domains-showcase-section">
+        <DomainsSection client:idle />
+      </section>
+
+      <!--
+        PHASE 5 — Bottom CTA block (same layout as team.astro).
+        Decorative artwork behind the glass card.
+        Images never overlap text (z-index: 1 < card z-index: 2).
+        Grayscale initially → coloured on hover. Subtle glow + movement.
+      -->
+      <section class="domains-bottom-cta">
+
+        <!-- Left character: slightly protrudes from left edge -->
+        <img
+          src="/i1.webp"
+          class="domains-cta-character-left"
+          alt=""
+          aria-hidden="true"
+        />
+
+        <!-- Right character: slightly protrudes from right edge -->
+        <img
+          src="/i3.webp"
+          class="domains-cta-character-right"
+          alt=""
+          aria-hidden="true"
+        />
+
+        <div class="domains-cta-box">
+          <div class="domains-cta-text">
+            <h2>Ready to build with us?</h2>
+            <p>We're building a vibrant tech community and looking for students who share our passion. Bring your curiosity, your drive, and your commitment to learning and growing together.</p>
+          </div>
+          <div class="domains-cta-action">
+            <a href="/contact" class="domains-cta-btn">
+              <span>Get in Touch</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer (React Island) -->
+  <Footer client:visible={{ rootMargin: '100px' }} active="domains" />
+
+</BaseLayout>
+
+<style>
+  .domains-showcase-section {
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+    min-height: 600px;
+    padding-top: 20px;
+  }
+</style>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      import('gsap').then(({ gsap }) => {
+        gsap.fromTo('.domains-showcase-section',
+          { opacity: 0, y: 15, filter: 'blur(4px)' },
+          { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.0, ease: 'power2.out' }
+        );
+      });
+    }, 2500);
+  });
+</script>
