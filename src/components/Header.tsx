@@ -20,7 +20,7 @@ export default function Header({ active }: Props) {
         <nav className="home-nav-pill hidden md:flex">
           <a href="/" className={active === 'home' ? 'active' : ''}>Home</a>
           <a href="/about" className={active === 'about' ? 'active' : ''}>About</a>
-          <a href="/#domains" className={active === 'domains' ? 'active' : ''}>Domains</a>
+          <a href="/domains" className={active === 'domains' ? 'active' : ''}>Domains</a>
           <a href="/gallery" className={active === 'gallery' ? 'active' : ''}>Gallery</a>
           <a href="/team" className={active === 'team' ? 'active' : ''}>Team</a>
           <a href="/contact" className={active === 'contact' ? 'active' : ''}>Contact</a>
@@ -48,7 +48,7 @@ export default function Header({ active }: Props) {
         <div className="mobile-menu-links">
           <a href="/" className={active === 'home' ? 'active' : ''} onClick={closeMenu}>Home</a>
           <a href="/about" className={active === 'about' ? 'active' : ''} onClick={closeMenu}>About</a>
-          <a href="/#domains" className={active === 'domains' ? 'active' : ''} onClick={closeMenu}>Domains</a>
+          <a href="/domains" className={active === 'domains' ? 'active' : ''} onClick={closeMenu}>Domains</a>
           <a href="/gallery" className={active === 'gallery' ? 'active' : ''} onClick={closeMenu}>Gallery</a>
           <a href="/team" className={active === 'team' ? 'active' : ''} onClick={closeMenu}>Team</a>
           <a href="/contact" className={active === 'contact' ? 'active' : ''} onClick={closeMenu}>Contact</a>

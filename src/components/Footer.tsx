@@ -57,7 +57,7 @@ export default function Footer({ active }: Props) {
         <div className="contra-links">
           <a href="/" className={active === 'home' ? 'active' : ''}>Home</a>
           <a href="/about" className={active === 'about' ? 'active' : ''}>About</a>
-          <a href="/#domains" className={active === 'domains' ? 'active' : ''}>Domains</a>
+          <a href="/domains" className={active === 'domains' ? 'active' : ''}>Domains</a>
           <a href="/gallery" className={active === 'gallery' ? 'active' : ''}>Gallery</a>
           <a href="/team" className={active === 'team' ? 'active' : ''}>Team</a>
           <a href="/contact" className={active === 'contact' ? 'active' : ''}>Contact</a>
